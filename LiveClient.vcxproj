@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</ProjectGuid>
+    <RootNamespace>LiveClient</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <Keyword>MFCProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="obs_sdk.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="obs_sdk.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="LiveClient.cpp" />
+    <ClCompile Include="obs\ObsApp.cpp" />
+    <ClCompile Include="obs\ObsScene.cpp" />
+    <ClCompile Include="obs\ObsSource.cpp" />
+    <ClCompile Include="obs\ObsOutput.cpp" />
+    <ClCompile Include="obs\ObsEncoder.cpp" />
+    <ClCompile Include="obs\ObsService.cpp" />
+    <ClCompile Include="obs\ObsPreview.cpp" />
+    <ClCompile Include="obs\ObsSettings.cpp" />
+    <ClCompile Include="dialogs\LiveClientDlg.cpp" />
+    <ClCompile Include="dialogs\SettingsDlg.cpp" />
+    <ClCompile Include="dialogs\AddSourceDlg.cpp" />
+    <ClCompile Include="dialogs\SourcePropDlg.cpp" />
+    <ClCompile Include="utils\StringUtil.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="LiveClient.h" />
+    <ClInclude Include="obs\ObsApp.h" />
+    <ClInclude Include="obs\ObsScene.h" />
+    <ClInclude Include="obs\ObsSource.h" />
+    <ClInclude Include="obs\ObsOutput.h" />
+    <ClInclude Include="obs\ObsEncoder.h" />
+    <ClInclude Include="obs\ObsService.h" />
+    <ClInclude Include="obs\ObsPreview.h" />
+    <ClInclude Include="obs\ObsSettings.h" />
+    <ClInclude Include="dialogs\LiveClientDlg.h" />
+    <ClInclude Include="dialogs\SettingsDlg.h" />
+    <ClInclude Include="dialogs\AddSourceDlg.h" />
+    <ClInclude Include="dialogs\SourcePropDlg.h" />
+    <ClInclude Include="utils\StringUtil.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LiveClient.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\LiveClient.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\LiveClient.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <PropertyGroup>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <PostBuildEvent>
+      <Command>
+xcopy /Y /D "$(OBS_SDK_DIR)\bin\32bit\*.dll" "$(OutDir)" &gt;nul 2&gt;&amp;1
+xcopy /Y /D "$(OBS_SDK_DIR)\bin\32bit\*.exe" "$(OutDir)" &gt;nul 2&gt;&amp;1
+if exist "$(OBS_SDK_DIR)\obs-plugins" xcopy /Y /D /S /I "$(OBS_SDK_DIR)\obs-plugins" "$(OutDir)obs-plugins" &gt;nul 2&gt;&amp;1
+if exist "$(OBS_SDK_DIR)\data" xcopy /Y /D /S /I "$(OBS_SDK_DIR)\data" "$(OutDir)data" &gt;nul 2&gt;&amp;1
+echo OBS runtime files copied.
+      </Command>
+      <Message>Copying OBS runtime DLLs and data files...</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+</Project>

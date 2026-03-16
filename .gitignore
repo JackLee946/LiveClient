@@ -1,0 +1,31 @@
+# Build output
+Debug/
+Release/
+x64/
+*.obj
+*.pch
+*.pdb
+*.ilk
+*.log
+*.tlog
+*.idb
+*.ipch
+*.lastbuildstate
+*.unsuccessfulbuild
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.ncb
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.opendb
+ipch/
+
+# Download scripts output
+third_party/_download/
+
+# Large file exceeding GitHub 100MB limit (not needed - browser source plugin)
+third_party/obs-studio-sdk/obs-plugins/32bit/libcef.dll

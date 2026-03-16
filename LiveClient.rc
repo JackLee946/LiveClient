@@ -1,0 +1,180 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+#include "afxres.h"
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (Simplified, PRC) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+// TEXTINCLUDE
+
+1 TEXTINCLUDE
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED\r\n"
+    "#include ""res\\LiveClient.rc2""\r\n"
+    "#include ""afxres.rc""\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+/////////////////////////////////////////////////////////////////////////////
+// Icon
+
+IDR_MAINFRAME           ICON                    "res\\LiveClient.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+// Dialog
+
+IDD_LIVECLIENT_DIALOG DIALOGEX 0, 0, 640, 400
+STYLE DS_SETFONT | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX
+CAPTION "LiveClient"
+FONT 9, "Segoe UI", 400, 0, 0x0
+BEGIN
+    CONTROL         "", IDC_STATIC_PREVIEW, "Static", SS_BLACKRECT | WS_BORDER, 7, 4, 440, 250
+
+    GROUPBOX        "Scenes", IDC_GROUP_SCENES, 453, 4, 180, 120
+    LISTBOX         IDC_LIST_SCENES, 459, 16, 168, 88, LBS_NOTIFY | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "+", IDC_BTN_ADD_SCENE, 459, 107, 24, 14
+    PUSHBUTTON      "-", IDC_BTN_REMOVE_SCENE, 487, 107, 24, 14
+
+    GROUPBOX        "Sources", IDC_GROUP_SOURCES, 453, 128, 180, 126
+    CONTROL         "", IDC_LIST_SOURCES, "SysListView32", LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP, 459, 140, 168, 92
+    PUSHBUTTON      "+", IDC_BTN_ADD_SOURCE, 459, 236, 24, 14
+    PUSHBUTTON      "-", IDC_BTN_REMOVE_SOURCE, 487, 236, 24, 14
+    PUSHBUTTON      "P", IDC_BTN_SOURCE_PROPS, 515, 236, 24, 14
+    PUSHBUTTON      "^", IDC_BTN_SOURCE_UP, 543, 236, 24, 14
+    PUSHBUTTON      "v", IDC_BTN_SOURCE_DOWN, 571, 236, 24, 14
+
+    GROUPBOX        "Audio Mixer", IDC_GROUP_MIXER, 7, 258, 440, 55
+    LTEXT           "Master", IDC_STATIC_MASTER_LABEL, 14, 272, 30, 8
+    CONTROL         "", IDC_SLIDER_MASTER, "msctls_trackbar32", TBS_HORZ | TBS_NOTICKS | WS_TABSTOP, 46, 270, 120, 16
+    CONTROL         "Mute", IDC_CHECK_MUTE_MASTER, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 170, 272, 35, 10
+
+    GROUPBOX        "Controls", IDC_GROUP_CONTROLS, 453, 258, 180, 55
+    PUSHBUTTON      "Start Streaming", IDC_BTN_START_STREAM, 459, 270, 80, 18
+    PUSHBUTTON      "Start Recording", IDC_BTN_START_RECORD, 545, 270, 80, 18
+    PUSHBUTTON      "Settings", IDC_BTN_SETTINGS, 497, 292, 50, 18
+
+    LTEXT           "Offline", IDC_STATIC_STATUS, 7, 320, 500, 12, SS_SUNKEN
+    RTEXT           "00:00:00", IDC_STATIC_STREAM_TIME, 520, 320, 110, 12, SS_SUNKEN
+END
+
+IDD_SETTINGS_DIALOG DIALOGEX 0, 0, 400, 320
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Settings"
+FONT 9, "Segoe UI", 400, 0, 0x0
+BEGIN
+    CONTROL         "", IDC_TAB_SETTINGS, "SysTabControl32", WS_TABSTOP, 7, 7, 386, 280
+
+    // Stream Tab (all controls have unique IDs)
+    LTEXT           "Server:", IDC_STATIC_SERVER, 20, 38, 55, 8
+    EDITTEXT        IDC_EDIT_SERVER, 80, 36, 300, 14, ES_AUTOHSCROLL
+    LTEXT           "Stream Key:", IDC_STATIC_STREAM_KEY, 20, 60, 55, 8
+    EDITTEXT        IDC_EDIT_STREAM_KEY, 80, 58, 300, 14, ES_PASSWORD | ES_AUTOHSCROLL
+
+    // Output Tab (all controls have unique IDs)
+    LTEXT           "Video Encoder:", IDC_STATIC_VIDEO_ENCODER, 20, 38, 58, 8
+    COMBOBOX        IDC_COMBO_VIDEO_ENCODER, 82, 36, 130, 60, CBS_DROPDOWNLIST | WS_TABSTOP
+    LTEXT           "Video Bitrate:", IDC_STATIC_VIDEO_BITRATE, 20, 58, 58, 8
+    EDITTEXT        IDC_EDIT_VIDEO_BITRATE, 82, 56, 50, 14, ES_NUMBER
+    LTEXT           "kbps", IDC_STATIC_VBITRATE_UNIT, 136, 58, 20, 8
+    LTEXT           "Rate Control:", IDC_STATIC_RATE_CONTROL, 20, 78, 58, 8
+    COMBOBOX        IDC_COMBO_RATE_CONTROL, 82, 76, 80, 60, CBS_DROPDOWNLIST | WS_TABSTOP
+    LTEXT           "Audio Bitrate:", IDC_STATIC_AUDIO_BITRATE, 20, 98, 58, 8
+    EDITTEXT        IDC_EDIT_AUDIO_BITRATE, 82, 96, 50, 14, ES_NUMBER
+    LTEXT           "kbps", IDC_STATIC_ABITRATE_UNIT, 136, 98, 20, 8
+    LTEXT           "Recording Path:", IDC_STATIC_RECORD_PATH, 20, 118, 60, 8
+    EDITTEXT        IDC_EDIT_RECORD_PATH, 82, 116, 255, 14, ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "...", IDC_BTN_BROWSE_RECORD_PATH, 342, 116, 20, 14
+    LTEXT           "Format:", IDC_STATIC_RECORD_FORMAT, 20, 138, 58, 8
+    COMBOBOX        IDC_COMBO_RECORD_FORMAT, 82, 136, 60, 60, CBS_DROPDOWNLIST | WS_TABSTOP
+
+    // Video Tab (all controls have unique IDs)
+    LTEXT           "Base Resolution:", IDC_STATIC_BASE_RES, 20, 38, 65, 8
+    COMBOBOX        IDC_COMBO_BASE_RESOLUTION, 92, 36, 110, 80, CBS_DROPDOWNLIST | WS_TABSTOP
+    LTEXT           "Output Resolution:", IDC_STATIC_OUTPUT_RES, 20, 58, 68, 8
+    COMBOBOX        IDC_COMBO_OUTPUT_RESOLUTION, 92, 56, 110, 80, CBS_DROPDOWNLIST | WS_TABSTOP
+    LTEXT           "FPS:", IDC_STATIC_FPS, 20, 78, 20, 8
+    COMBOBOX        IDC_COMBO_FPS, 92, 76, 60, 80, CBS_DROPDOWNLIST | WS_TABSTOP
+
+    // Audio Tab (all controls have unique IDs)
+    LTEXT           "Sample Rate:", IDC_STATIC_SAMPLE_RATE, 20, 38, 55, 8
+    COMBOBOX        IDC_COMBO_SAMPLE_RATE, 80, 36, 100, 60, CBS_DROPDOWNLIST | WS_TABSTOP
+    LTEXT           "Channels:", IDC_STATIC_CHANNELS, 20, 58, 55, 8
+    COMBOBOX        IDC_COMBO_CHANNELS, 80, 56, 100, 60, CBS_DROPDOWNLIST | WS_TABSTOP
+
+    DEFPUSHBUTTON   "OK", IDOK, 280, 295, 50, 18
+    PUSHBUTTON      "Cancel", IDCANCEL, 336, 295, 50, 18
+END
+
+IDD_ADDSOURCE_DIALOG DIALOGEX 0, 0, 240, 100
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Add Source"
+FONT 9, "Segoe UI", 400, 0, 0x0
+BEGIN
+    LTEXT           "Source Type:", -1, 14, 16, 50, 8
+    COMBOBOX        IDC_COMBO_SOURCE_TYPE, 70, 14, 156, 80, CBS_DROPDOWNLIST | WS_TABSTOP
+    LTEXT           "Name:", -1, 14, 40, 50, 8
+    EDITTEXT        IDC_EDIT_SOURCE_NAME, 70, 38, 156, 14, ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK", IDOK, 120, 72, 50, 18
+    PUSHBUTTON      "Cancel", IDCANCEL, 176, 72, 50, 18
+END
+
+IDD_SOURCEPROP_DIALOG DIALOGEX 0, 0, 400, 350
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Source Properties"
+FONT 9, "Segoe UI", 400, 0, 0x0
+BEGIN
+    CONTROL         "", IDC_STATIC_PROP_AREA, "Static", SS_ETCHEDFRAME, 7, 7, 386, 310
+    DEFPUSHBUTTON   "OK", IDOK, 280, 325, 50, 18
+    PUSHBUTTON      "Cancel", IDCANCEL, 336, 325, 50, 18
+END
+
+#endif    // Chinese (Simplified, PRC) resources
+
+/////////////////////////////////////////////////////////////////////////////
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+// Generated from the TEXTINCLUDE 3 resource.
+
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#include "res\LiveClient.rc2"
+#include "afxres.rc"
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED

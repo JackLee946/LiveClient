@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\OBS">
+      <UniqueIdentifier>{B1A2C3D4-E5F6-7890-ABCD-100000000001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dialogs">
+      <UniqueIdentifier>{B1A2C3D4-E5F6-7890-ABCD-100000000002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{B1A2C3D4-E5F6-7890-ABCD-100000000003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\OBS">
+      <UniqueIdentifier>{B1A2C3D4-E5F6-7890-ABCD-200000000001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Dialogs">
+      <UniqueIdentifier>{B1A2C3D4-E5F6-7890-ABCD-200000000002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{B1A2C3D4-E5F6-7890-ABCD-200000000003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LiveClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="obs\ObsApp.cpp">
+      <Filter>Source Files\OBS</Filter>
+    </ClCompile>
+    <ClCompile Include="obs\ObsScene.cpp">
+      <Filter>Source Files\OBS</Filter>
+    </ClCompile>
+    <ClCompile Include="obs\ObsSource.cpp">
+      <Filter>Source Files\OBS</Filter>
+    </ClCompile>
+    <ClCompile Include="obs\ObsOutput.cpp">
+      <Filter>Source Files\OBS</Filter>
+    </ClCompile>
+    <ClCompile Include="obs\ObsEncoder.cpp">
+      <Filter>Source Files\OBS</Filter>
+    </ClCompile>
+    <ClCompile Include="obs\ObsService.cpp">
+      <Filter>Source Files\OBS</Filter>
+    </ClCompile>
+    <ClCompile Include="obs\ObsPreview.cpp">
+      <Filter>Source Files\OBS</Filter>
+    </ClCompile>
+    <ClCompile Include="obs\ObsSettings.cpp">
+      <Filter>Source Files\OBS</Filter>
+    </ClCompile>
+    <ClCompile Include="dialogs\LiveClientDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="dialogs\SettingsDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="dialogs\AddSourceDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="dialogs\SourcePropDlg.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\StringUtil.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LiveClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="obs\ObsApp.h">
+      <Filter>Header Files\OBS</Filter>
+    </ClInclude>
+    <ClInclude Include="obs\ObsScene.h">
+      <Filter>Header Files\OBS</Filter>
+    </ClInclude>
+    <ClInclude Include="obs\ObsSource.h">
+      <Filter>Header Files\OBS</Filter>
+    </ClInclude>
+    <ClInclude Include="obs\ObsOutput.h">
+      <Filter>Header Files\OBS</Filter>
+    </ClInclude>
+    <ClInclude Include="obs\ObsEncoder.h">
+      <Filter>Header Files\OBS</Filter>
+    </ClInclude>
+    <ClInclude Include="obs\ObsService.h">
+      <Filter>Header Files\OBS</Filter>
+    </ClInclude>
+    <ClInclude Include="obs\ObsPreview.h">
+      <Filter>Header Files\OBS</Filter>
+    </ClInclude>
+    <ClInclude Include="obs\ObsSettings.h">
+      <Filter>Header Files\OBS</Filter>
+    </ClInclude>
+    <ClInclude Include="dialogs\LiveClientDlg.h">
+      <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="dialogs\SettingsDlg.h">
+      <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="dialogs\AddSourceDlg.h">
+      <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="dialogs\SourcePropDlg.h">
+      <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\StringUtil.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LiveClient.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\LiveClient.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\LiveClient.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
