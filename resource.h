@@ -33,6 +33,14 @@
 #define IDC_STATIC_MASTER_LABEL         1032
 #define IDC_CHECK_MUTE_MASTER           1037
 
+// --- Main Dialog: Beauty Filter ---
+#define IDC_GROUP_BEAUTY                1070
+#define IDC_CHECK_BEAUTY                1071
+#define IDC_SLIDER_SMOOTH               1072
+#define IDC_SLIDER_WHITE                1073
+#define IDC_STATIC_SMOOTH_LABEL         1074
+#define IDC_STATIC_WHITE_LABEL          1075
+
 // --- Main Dialog: Controls ---
 #define IDC_GROUP_CONTROLS              1050
 #define IDC_BTN_START_STREAM            1051

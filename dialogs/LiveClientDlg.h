@@ -45,6 +45,9 @@ protected:
     afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
     afx_msg void OnCheckMuteMaster();
 
+    // Beauty filter
+    afx_msg void OnCheckBeauty();
+
     // Control buttons
     afx_msg void OnBtnStartStream();
     afx_msg void OnBtnStartRecord();
@@ -64,6 +67,8 @@ private:
     void UpdateStatusBar();
     void SetupObs();
     void ShutdownObs();
+    void UpdateBeautyFilter();
+    obs_source_t* FindBeautyFilter();
 
     CObsScene* GetCurrentScene();
     int GetCurrentSceneIndex();
@@ -83,6 +88,9 @@ private:
     CListCtrl  m_listSources;
     CSliderCtrl m_sliderMaster;
     CButton    m_checkMuteMaster;
+    CButton     m_checkBeauty;
+    CSliderCtrl m_sliderSmooth;
+    CSliderCtrl m_sliderWhite;
 
     // Stream state
     bool       m_bStreaming;

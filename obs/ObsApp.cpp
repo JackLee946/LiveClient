@@ -2,6 +2,7 @@
 #include "ObsApp.h"
 #include "ObsSettings.h"
 #include "../utils/StringUtil.h"
+#include "../filter/BeautyFilter.h"
 
 // Get directory containing the running executable
 static std::string GetExeDirectory()
@@ -96,6 +97,9 @@ bool CObsApp::Initialize(const CObsSettings& settings)
         obs_shutdown();
         return false;
     }
+
+    // Register custom filters before loading modules
+    RegisterBeautyFilter();
 
     // Load OBS modules (plugins)
     LoadModules();

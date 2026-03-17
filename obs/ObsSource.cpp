@@ -105,6 +105,16 @@ CObsSource* CObsSource::CreateCamera(const char* name, obs_data_t* settings)
     obj->m_id     = "dshow_input";
     obj->m_name   = name;
     obj->m_type   = SourceType::Camera;
+
+    // Auto-attach beauty filter to camera source
+    obs_source_t* beautyFilter = obs_source_create(
+        "beauty_filter", "Beauty", nullptr, nullptr);
+    if (beautyFilter)
+    {
+        obs_source_filter_add(source, beautyFilter);
+        obs_source_release(beautyFilter);
+    }
+
     return obj;
 }
 

@@ -32,6 +32,9 @@ void CLiveClientDlg::DoDataExchange(CDataExchange* pDX)
     DDX_Control(pDX, IDC_LIST_SOURCES, m_listSources);
     DDX_Control(pDX, IDC_SLIDER_MASTER, m_sliderMaster);
     DDX_Control(pDX, IDC_CHECK_MUTE_MASTER, m_checkMuteMaster);
+    DDX_Control(pDX, IDC_CHECK_BEAUTY, m_checkBeauty);
+    DDX_Control(pDX, IDC_SLIDER_SMOOTH, m_sliderSmooth);
+    DDX_Control(pDX, IDC_SLIDER_WHITE, m_sliderWhite);
 }
 
 BEGIN_MESSAGE_MAP(CLiveClientDlg, CDialogEx)
@@ -57,6 +60,9 @@ BEGIN_MESSAGE_MAP(CLiveClientDlg, CDialogEx)
 
     // Audio
     ON_BN_CLICKED(IDC_CHECK_MUTE_MASTER, &CLiveClientDlg::OnCheckMuteMaster)
+
+    // Beauty
+    ON_BN_CLICKED(IDC_CHECK_BEAUTY, &CLiveClientDlg::OnCheckBeauty)
 
     // Control buttons
     ON_BN_CLICKED(IDC_BTN_START_STREAM, &CLiveClientDlg::OnBtnStartStream)
@@ -86,6 +92,13 @@ BOOL CLiveClientDlg::OnInitDialog()
     // Setup master volume slider
     m_sliderMaster.SetRange(0, 100);
     m_sliderMaster.SetPos(100);
+
+    // Setup beauty sliders
+    m_sliderSmooth.SetRange(0, 10);
+    m_sliderSmooth.SetPos(5);
+    m_sliderWhite.SetRange(0, 10);
+    m_sliderWhite.SetPos(3);
+    m_checkBeauty.SetCheck(BST_UNCHECKED);
 
     // Setup OBS components
     SetupObs();
@@ -236,11 +249,11 @@ void CLiveClientDlg::LayoutControls(int cx, int cy)
     GetDlgItem(IDC_STATIC_STATUS)->MoveWindow(margin, statusY, cx - margin * 2 - 130, statusH);
     GetDlgItem(IDC_STATIC_STREAM_TIME)->MoveWindow(cx - margin - 125, statusY, 125, statusH);
 
-    // ---- Bottom row: Mixer (left) + Controls (right) ----
+    // ---- Bottom row: Mixer (left) + Beauty (center) + Controls (right) ----
     int bottomY = statusY - gap - bottomRowH;
-    int mixerW = cx - margin * 2 - rightPanelW - gap;
 
-    // Audio Mixer group
+    // Audio Mixer group (left half of bottom row)
+    int mixerW = (cx - margin * 2 - rightPanelW - gap) / 2;
     GetDlgItem(IDC_GROUP_MIXER)->MoveWindow(margin, bottomY, mixerW, bottomRowH);
     GetDlgItem(IDC_STATIC_MASTER_LABEL)->MoveWindow(margin + 10, bottomY + 20, 36, 14);
     int sliderX = margin + 50;
@@ -248,6 +261,21 @@ void CLiveClientDlg::LayoutControls(int cx, int cy)
     if (sliderW < 60) sliderW = 60;
     GetDlgItem(IDC_SLIDER_MASTER)->MoveWindow(sliderX, bottomY + 18, sliderW, 20);
     GetDlgItem(IDC_CHECK_MUTE_MASTER)->MoveWindow(sliderX + sliderW + 8, bottomY + 20, 50, 14);
+
+    // Beauty group (right half of bottom row, next to mixer)
+    int beautyX = margin + mixerW + gap;
+    int beautyW = cx - margin * 2 - rightPanelW - gap - mixerW - gap;
+    GetDlgItem(IDC_GROUP_BEAUTY)->MoveWindow(beautyX, bottomY, beautyW, bottomRowH);
+    int bInset = 8;
+    GetDlgItem(IDC_CHECK_BEAUTY)->MoveWindow(beautyX + bInset, bottomY + 20, 42, 14);
+    int bCtrlX = beautyX + bInset + 46;
+    int bSliderW = (beautyW - bInset * 2 - 46 - 80) / 2; // split remaining space for 2 sliders
+    if (bSliderW < 30) bSliderW = 30;
+    GetDlgItem(IDC_STATIC_SMOOTH_LABEL)->MoveWindow(bCtrlX, bottomY + 20, 34, 14);
+    GetDlgItem(IDC_SLIDER_SMOOTH)->MoveWindow(bCtrlX + 36, bottomY + 18, bSliderW, 20);
+    int bCtrlX2 = bCtrlX + 36 + bSliderW + 6;
+    GetDlgItem(IDC_STATIC_WHITE_LABEL)->MoveWindow(bCtrlX2, bottomY + 20, 30, 14);
+    GetDlgItem(IDC_SLIDER_WHITE)->MoveWindow(bCtrlX2 + 32, bottomY + 18, bSliderW, 20);
 
     // Controls group
     int ctrlX = cx - margin - rightPanelW;
@@ -590,6 +618,14 @@ void CLiveClientDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
         }
     }
 
+    // Beauty sliders
+    if (pScrollBar &&
+        (pScrollBar->GetSafeHwnd() == m_sliderSmooth.GetSafeHwnd() ||
+         pScrollBar->GetSafeHwnd() == m_sliderWhite.GetSafeHwnd()))
+    {
+        UpdateBeautyFilter();
+    }
+
     CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
 }
 
@@ -861,4 +897,64 @@ void CLiveClientDlg::UpdateStatusBar()
     CString timeStr;
     timeStr.Format(_T("%02d:%02d:%02d"), hours, mins, secs);
     GetDlgItem(IDC_STATIC_STREAM_TIME)->SetWindowText(timeStr);
+}
+
+// --- Beauty Filter ---
+
+void CLiveClientDlg::OnCheckBeauty()
+{
+    UpdateBeautyFilter();
+}
+
+obs_source_t* CLiveClientDlg::FindBeautyFilter()
+{
+    // Find a camera source in current scene and get its beauty filter
+    CObsScene* scene = GetCurrentScene();
+    if (!scene)
+        return nullptr;
+
+    auto items = scene->GetItems();
+    for (auto& item : items)
+    {
+        // Check if this source has a beauty_filter attached
+        obs_source_t* filter = obs_source_get_filter_by_name(item.source, "Beauty");
+        if (filter)
+        {
+            // obs_source_get_filter_by_name increments refcount, caller must release
+            return filter;
+        }
+    }
+
+    // Also check m_sources for camera types
+    for (auto* src : m_sources)
+    {
+        if (src->GetType() == SourceType::Camera)
+        {
+            obs_source_t* filter = obs_source_get_filter_by_name(
+                src->GetSource(), "Beauty");
+            if (filter)
+                return filter;
+        }
+    }
+
+    return nullptr;
+}
+
+void CLiveClientDlg::UpdateBeautyFilter()
+{
+    obs_source_t* filter = FindBeautyFilter();
+    if (!filter)
+        return;
+
+    bool enabled = (m_checkBeauty.GetCheck() == BST_CHECKED);
+    int smooth = m_sliderSmooth.GetPos();
+    int white = m_sliderWhite.GetPos();
+
+    obs_data_t* settings = obs_data_create();
+    obs_data_set_bool(settings, "enabled", enabled);
+    obs_data_set_int(settings, "smooth_level", smooth);
+    obs_data_set_int(settings, "white_level", white);
+    obs_source_update(filter, settings);
+    obs_data_release(settings);
+    obs_source_release(filter);
 }

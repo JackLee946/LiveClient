@@ -40,10 +40,12 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="obs_sdk.props" />
+    <Import Project="opencv.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="obs_sdk.props" />
+    <Import Project="opencv.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -53,15 +55,16 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;OPENCV_SKIP_ABI_TAG_CHECK=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>LIBCMTD;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -101,6 +104,7 @@
     <ClCompile Include="dialogs\SettingsDlg.cpp" />
     <ClCompile Include="dialogs\AddSourceDlg.cpp" />
     <ClCompile Include="dialogs\SourcePropDlg.cpp" />
+    <ClCompile Include="filter\BeautyFilter.cpp" />
     <ClCompile Include="utils\StringUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +124,7 @@
     <ClInclude Include="dialogs\SettingsDlg.h" />
     <ClInclude Include="dialogs\AddSourceDlg.h" />
     <ClInclude Include="dialogs\SourcePropDlg.h" />
+    <ClInclude Include="filter\BeautyFilter.h" />
     <ClInclude Include="utils\StringUtil.h" />
   </ItemGroup>
   <ItemGroup>
@@ -144,9 +149,12 @@ xcopy /Y /D "$(OBS_SDK_DIR)\bin\32bit\*.dll" "$(OutDir)" &gt;nul 2&gt;&amp;1
 xcopy /Y /D "$(OBS_SDK_DIR)\bin\32bit\*.exe" "$(OutDir)" &gt;nul 2&gt;&amp;1
 if exist "$(OBS_SDK_DIR)\obs-plugins" xcopy /Y /D /S /I "$(OBS_SDK_DIR)\obs-plugins" "$(OutDir)obs-plugins" &gt;nul 2&gt;&amp;1
 if exist "$(OBS_SDK_DIR)\data" xcopy /Y /D /S /I "$(OBS_SDK_DIR)\data" "$(OutDir)data" &gt;nul 2&gt;&amp;1
-echo OBS runtime files copied.
+if exist "$(OPENCV_DIR)\bin\opencv_world480.dll" xcopy /Y /D "$(OPENCV_DIR)\bin\opencv_world480*.dll" "$(OutDir)" &gt;nul 2&gt;&amp;1
+if not exist "$(OutDir)models" mkdir "$(OutDir)models"
+if exist "$(ProjectDir)third_party\models\*.onnx" xcopy /Y /D "$(ProjectDir)third_party\models\*.onnx" "$(OutDir)models\" &gt;nul 2&gt;&amp;1
+echo OBS runtime files and OpenCV copied.
       </Command>
-      <Message>Copying OBS runtime DLLs and data files...</Message>
+      <Message>Copying OBS runtime DLLs, OpenCV, and model files...</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
 </Project>

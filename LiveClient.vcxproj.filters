@@ -14,6 +14,9 @@
     <Filter Include="Source Files\Utils">
       <UniqueIdentifier>{B1A2C3D4-E5F6-7890-ABCD-100000000003}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Filter">
+      <UniqueIdentifier>{B1A2C3D4-E5F6-7890-ABCD-100000000004}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
@@ -26,6 +29,9 @@
     </Filter>
     <Filter Include="Header Files\Utils">
       <UniqueIdentifier>{B1A2C3D4-E5F6-7890-ABCD-200000000003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Filter">
+      <UniqueIdentifier>{B1A2C3D4-E5F6-7890-ABCD-200000000004}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
@@ -77,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="utils\StringUtil.cpp">
       <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="filter\BeautyFilter.cpp">
+      <Filter>Source Files\Filter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="utils\StringUtil.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="filter\BeautyFilter.h">
+      <Filter>Header Files\Filter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
