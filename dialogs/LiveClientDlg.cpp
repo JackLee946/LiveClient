@@ -237,12 +237,12 @@ void CLiveClientDlg::OnSize(UINT nType, int cx, int cy)
 
 void CLiveClientDlg::LayoutControls(int cx, int cy)
 {
-    const int margin = 8;
-    const int gap = 5;
-    const int rightPanelW = 220;     // wider right panel
-    const int statusH = 18;
-    const int bottomRowH = 65;       // mixer + controls row height
-    const int btnH = 22;             // taller buttons
+    const int margin = 10;           // slightly larger margin
+    const int gap = 8;               // slightly larger gap
+    const int rightPanelW = 240;     // slightly wider for buttons
+    const int statusH = 20;
+    const int bottomRowH = 75;       // taller bottom row
+    const int btnH = 24;             // standard button height
 
     // ---- Status bar (very bottom) ----
     int statusY = cy - margin - statusH;
@@ -252,39 +252,61 @@ void CLiveClientDlg::LayoutControls(int cx, int cy)
     // ---- Bottom row: Mixer (left) + Beauty (center) + Controls (right) ----
     int bottomY = statusY - gap - bottomRowH;
 
-    // Audio Mixer group (left half of bottom row)
+    // Centering constants for bottom row (consistent alignment)
+    int rowCenterY = bottomY + (bottomRowH + 10) / 2; // offset for groupbox title
+    int labelH = 20; // Increased from 14 to 20 to fix vertical text clipping
+    int labelY = rowCenterY - (labelH / 2);
+    int sliderY = rowCenterY - 11;
+
+    // Audio Mixer group (left part of bottom row)
     int mixerW = (cx - margin * 2 - rightPanelW - gap) / 2;
     GetDlgItem(IDC_GROUP_MIXER)->MoveWindow(margin, bottomY, mixerW, bottomRowH);
-    GetDlgItem(IDC_STATIC_MASTER_LABEL)->MoveWindow(margin + 10, bottomY + 20, 36, 14);
-    int sliderX = margin + 50;
-    int sliderW = mixerW - 120;
-    if (sliderW < 60) sliderW = 60;
-    GetDlgItem(IDC_SLIDER_MASTER)->MoveWindow(sliderX, bottomY + 18, sliderW, 20);
-    GetDlgItem(IDC_CHECK_MUTE_MASTER)->MoveWindow(sliderX + sliderW + 8, bottomY + 20, 50, 14);
+    int mLabelW = 85; // Extra large width for high DPI fonts
+    GetDlgItem(IDC_STATIC_MASTER_LABEL)->MoveWindow(margin + 12, labelY, mLabelW, labelH);
+    int sliderX = margin + 12 + mLabelW + 5;
+    int mMuteW = 80;  // Extra large for Mute checkbox
+    int sliderW = mixerW - (12 + mLabelW + 5 + mMuteW);
+    if (sliderW < 50) sliderW = 50;
+    GetDlgItem(IDC_SLIDER_MASTER)->MoveWindow(sliderX, sliderY, sliderW, 22);
+    GetDlgItem(IDC_CHECK_MUTE_MASTER)->MoveWindow(sliderX + sliderW + 5, labelY, mMuteW, labelH);
 
-    // Beauty group (right half of bottom row, next to mixer)
+    // Beauty group (middle of bottom row, split into 2 rows to avoid scaling overlap)
     int beautyX = margin + mixerW + gap;
     int beautyW = cx - margin * 2 - rightPanelW - gap - mixerW - gap;
     GetDlgItem(IDC_GROUP_BEAUTY)->MoveWindow(beautyX, bottomY, beautyW, bottomRowH);
-    int bInset = 8;
-    GetDlgItem(IDC_CHECK_BEAUTY)->MoveWindow(beautyX + bInset, bottomY + 20, 42, 14);
-    int bCtrlX = beautyX + bInset + 46;
-    int bSliderW = (beautyW - bInset * 2 - 46 - 80) / 2; // split remaining space for 2 sliders
-    if (bSliderW < 30) bSliderW = 30;
-    GetDlgItem(IDC_STATIC_SMOOTH_LABEL)->MoveWindow(bCtrlX, bottomY + 20, 34, 14);
-    GetDlgItem(IDC_SLIDER_SMOOTH)->MoveWindow(bCtrlX + 36, bottomY + 18, bSliderW, 20);
-    int bCtrlX2 = bCtrlX + 36 + bSliderW + 6;
-    GetDlgItem(IDC_STATIC_WHITE_LABEL)->MoveWindow(bCtrlX2, bottomY + 20, 30, 14);
-    GetDlgItem(IDC_SLIDER_WHITE)->MoveWindow(bCtrlX2 + 32, bottomY + 18, bSliderW, 20);
 
-    // Controls group
+    // Row 1 (Enable Beauty Checkbox)
+    int bRow1Y = bottomY + 18;
+    GetDlgItem(IDC_CHECK_BEAUTY)->MoveWindow(beautyX + 12, bRow1Y, 150, labelH); // Give Enable massive width and accurate height
+
+    // Row 2 (Smooth and White)
+    int bRow2Y = bottomY + 44;
+    int bLabelW = 85; 
+    int halfW = (beautyW - 20) / 2; // Split remaining row 2 into halves
+
+    // Left half (Smooth)
+    GetDlgItem(IDC_STATIC_SMOOTH_LABEL)->MoveWindow(beautyX + 12, bRow2Y, bLabelW, labelH);
+    int sSliderW = halfW - bLabelW - 5;
+    if (sSliderW < 40) sSliderW = 40;
+    GetDlgItem(IDC_SLIDER_SMOOTH)->MoveWindow(beautyX + 12 + bLabelW, bRow2Y - 1, sSliderW, 22);
+    
+    // Right half (White)
+    int whiteX = beautyX + 10 + halfW;
+    GetDlgItem(IDC_STATIC_WHITE_LABEL)->MoveWindow(whiteX + 5, bRow2Y, bLabelW, labelH);
+    int wSliderW = halfW - bLabelW - 10;
+    if (wSliderW < 40) wSliderW = 40;
+    GetDlgItem(IDC_SLIDER_WHITE)->MoveWindow(whiteX + 5 + bLabelW, bRow2Y - 1, wSliderW, 22);
+
+    // Controls group (right part of bottom row)
     int ctrlX = cx - margin - rightPanelW;
     GetDlgItem(IDC_GROUP_CONTROLS)->MoveWindow(ctrlX, bottomY, rightPanelW, bottomRowH);
-    int cbtnW = (rightPanelW - 30) / 2;  // button width, split evenly
-    GetDlgItem(IDC_BTN_START_STREAM)->MoveWindow(ctrlX + 8, bottomY + 16, cbtnW, btnH);
-    GetDlgItem(IDC_BTN_START_RECORD)->MoveWindow(ctrlX + 8 + cbtnW + 6, bottomY + 16, cbtnW, btnH);
-    int settingsW = 80;
-    GetDlgItem(IDC_BTN_SETTINGS)->MoveWindow(ctrlX + (rightPanelW - settingsW) / 2, bottomY + 40, settingsW, btnH);
+    int cbtnW = (rightPanelW - 25) / 2;
+    int cbtnH = 26; // Increased button height from 24 to 26 for high-DPI
+    int cbtnY = bottomY + 20;
+    GetDlgItem(IDC_BTN_START_STREAM)->MoveWindow(ctrlX + 10, cbtnY, cbtnW, cbtnH);
+    GetDlgItem(IDC_BTN_START_RECORD)->MoveWindow(ctrlX + 10 + cbtnW + 5, cbtnY, cbtnW, cbtnH);
+    int settingsW = 100;
+    GetDlgItem(IDC_BTN_SETTINGS)->MoveWindow(ctrlX + (rightPanelW - settingsW) / 2, bottomY + 48, settingsW, cbtnH);
 
     // ---- Preview area (left, fills remaining space) ----
     int previewW = cx - margin * 2 - rightPanelW - gap;
@@ -299,10 +321,10 @@ void CLiveClientDlg::LayoutControls(int cx, int cy)
     int rightH = bottomY - gap - margin;
     int sceneH = (int)(rightH * 0.38);
     int sourceH = rightH - sceneH - gap;
-    int listW = rightPanelW - 16;
-    int listInset = 8;
-    int smallBtnW = 30;
-    int smallBtnH = 20;
+    int listW = rightPanelW - 20;
+    int listInset = 10;
+    int smallBtnW = 40;
+    int smallBtnH = 24;
 
     // Scene group
     GetDlgItem(IDC_GROUP_SCENES)->MoveWindow(rightX, margin, rightPanelW, sceneH);
